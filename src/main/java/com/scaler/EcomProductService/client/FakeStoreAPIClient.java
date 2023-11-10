@@ -4,6 +4,8 @@ import com.scaler.EcomProductService.dto.FakeStoreProductRequestDTO;
 import com.scaler.EcomProductService.dto.FakeStoreProductResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -31,6 +33,9 @@ public class FakeStoreAPIClient {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductResponseDTO> productResponse =
                 restTemplate.postForEntity(createProductUrl, fakeStoreProductRequestDTO, FakeStoreProductResponseDTO.class);
+        // another way of doing it
+//        HttpEntity<FakeStoreProductRequestDTO> httpEntity = new HttpEntity<>(fakeStoreProductRequestDTO);
+//        ResponseEntity<FakeStoreProductResponseDTO> productResponse = restTemplate.exchange(createProductUrl, HttpMethod.POST, httpEntity, FakeStoreProductResponseDTO.class);
         return productResponse.getBody();
     }
 
@@ -54,5 +59,13 @@ public class FakeStoreAPIClient {
         String productDeleteURL = fakeStoreAPIURL + fakeStoreAPIPathProduct + "/" + id;
         RestTemplate restTemplate = restTemplateBuilder.build();
         restTemplate.delete(productDeleteURL);
+    }
+
+    public FakeStoreProductResponseDTO updateProduct(FakeStoreProductRequestDTO productRequestDTO, int id){
+        String updateProductURL = fakeStoreAPIURL + fakeStoreAPIPathProduct + "/" + id;
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        HttpEntity<FakeStoreProductRequestDTO> httpEntity = new HttpEntity<>(productRequestDTO);
+        ResponseEntity<FakeStoreProductResponseDTO> responseEntity = restTemplate.exchange(updateProductURL, HttpMethod.PUT, httpEntity, FakeStoreProductResponseDTO.class);
+        return responseEntity.getBody();
     }
 }

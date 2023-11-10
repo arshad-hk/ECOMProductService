@@ -81,6 +81,7 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity createProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        System.out.println("create product:"+productRequestDTO);
         ProductResponseDTO responseDTO = productService.createProduct(productRequestDTO);
         return ResponseEntity.ok(responseDTO);
     }
@@ -89,6 +90,12 @@ public class ProductController {
     public ResponseEntity deleteProductById(@PathVariable("id") int id){
         boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/products/{id}")
+    public ResponseEntity updateProductById(ProductRequestDTO productRequestDTO, @PathVariable("id")int id){
+        ProductResponseDTO productResponseDTO = productService.updateProduct(id, productRequestDTO);
+        return ResponseEntity.ok(productResponseDTO);
     }
 }
 /*

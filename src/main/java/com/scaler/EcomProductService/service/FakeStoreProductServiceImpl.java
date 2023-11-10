@@ -15,11 +15,9 @@ import static com.scaler.EcomProductService.util.ProductUtils.isNull;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductServiceImpl implements ProductService{
-    private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreAPIClient fakeStoreAPIClient;
 
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreAPIClient fakeStoreAPIClient) {
-        this.restTemplateBuilder = restTemplateBuilder;
+    public FakeStoreProductServiceImpl(FakeStoreAPIClient fakeStoreAPIClient) {
         this.fakeStoreAPIClient = fakeStoreAPIClient;
     }
 
@@ -57,7 +55,9 @@ public class FakeStoreProductServiceImpl implements ProductService{
 
     //TODO : complete this
     @Override
-    public Product updateProduct(int id, Product updatedProduct) {
-        return null;
+    public ProductResponseDTO updateProduct(int id, ProductRequestDTO updatedProduct) {
+        FakeStoreProductRequestDTO fakeStoreProductRequestDTO = productRequestToFakeStoreProductRequest(updatedProduct);
+        FakeStoreProductResponseDTO fakeStoreProductResponseDTO = fakeStoreAPIClient.updateProduct(fakeStoreProductRequestDTO, id);
+        return fakeProductResponseToProductResponse(fakeStoreProductResponseDTO);
     }
 }
