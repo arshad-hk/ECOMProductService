@@ -60,4 +60,9 @@ public class FakeStoreProductServiceImpl implements ProductService{
         FakeStoreProductResponseDTO fakeStoreProductResponseDTO = fakeStoreAPIClient.updateProduct(fakeStoreProductRequestDTO, id);
         return fakeProductResponseToProductResponse(fakeStoreProductResponseDTO);
     }
+
+    @Override
+    public ProductResponseDTO findProductByTitle(String title) {
+        return null;
+    }
 }

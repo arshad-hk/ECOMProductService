@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Order extends BaseModel{
+    private double price;
     @ManyToMany
     List<Product> products;
 }

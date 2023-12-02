@@ -49,9 +49,16 @@ public class InitServiceImpl implements InitService{
         priceWatch.setAmount(40000);
         priceWatch.setDiscount(0);
 
+        Price pricePS5 = new Price();
+        pricePS5.setCurrency("INR");
+        pricePS5.setAmount(50000);
+        pricePS5.setDiscount(0);
+
         priceIphone = priceRepository.save(priceIphone);
         priceMacbook = priceRepository.save(priceMacbook);
         priceWatch = priceRepository.save(priceWatch);
+        pricePS5 = priceRepository.save(pricePS5);
+
 
         Product iphone = new Product();
         iphone.setTitle("IPhone 15 Pro");
@@ -77,8 +84,16 @@ public class InitServiceImpl implements InitService{
         watch.setCategory(electronics);
         watch = productRepository.save(watch);
 
+        Product ps5 = new Product();
+        ps5.setTitle("PlayStation5");
+        ps5.setDescription("Best playstation ever");
+        ps5.setImage("http://someImageURl");
+        ps5.setPrice(pricePS5);
+        ps5.setCategory(electronics);
+        ps5 = productRepository.save(ps5);
+
         Order order = new Order();
-        order.setProducts(List.of(iphone, macbook, watch));
+        order.setProducts(List.of(iphone, macbook, watch, ps5));
         order = orderRepository.save(order);
     }
 }
