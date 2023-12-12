@@ -3,6 +3,7 @@ package com.scaler.EcomProductService.controller;
 import com.scaler.EcomProductService.dto.ProductListResponseDTO;
 import com.scaler.EcomProductService.dto.ProductRequestDTO;
 import com.scaler.EcomProductService.dto.ProductResponseDTO;
+import com.scaler.EcomProductService.exception.InvalidTitleException;
 import com.scaler.EcomProductService.exception.ProductNotFoundException;
 import com.scaler.EcomProductService.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/title/{title}")
-    public ResponseEntity findProductByTitle(@PathVariable("title") String title){
+    public ResponseEntity findProductByTitle(@PathVariable("title") String title) throws ProductNotFoundException, InvalidTitleException {
         ProductResponseDTO productResponseDTO = productService.findProductByTitle(title);
         return ResponseEntity.ok(productResponseDTO);
     }
