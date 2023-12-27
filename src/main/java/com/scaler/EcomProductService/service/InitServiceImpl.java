@@ -8,11 +8,13 @@ import com.scaler.EcomProductService.repository.CategoryRepository;
 import com.scaler.EcomProductService.repository.OrderRepository;
 import com.scaler.EcomProductService.repository.PriceRepository;
 import com.scaler.EcomProductService.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Qualifier("InitServiceImpl")
 public class InitServiceImpl implements InitService{
 
     private ProductRepository productRepository;

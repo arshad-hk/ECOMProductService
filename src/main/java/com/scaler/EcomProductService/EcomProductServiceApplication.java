@@ -6,22 +6,24 @@ import com.scaler.EcomProductService.demo.Author;
 import com.scaler.EcomProductService.demo.AuthorRepository;
 import com.scaler.EcomProductService.demo.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackages = {"com.scaler"})
+@SpringBootApplication()
 public class EcomProductServiceApplication implements CommandLineRunner {
 
-	@Autowired
-	InitService initService;
+//	@Autowired
+//	@Qualifier("InitServiceImpl")
+//	InitService initService;
 
-	@Autowired
+	//@Autowired
 	AuthorRepository authorRepository;
 
-	@Autowired
+	//@Autowired
 	AuthorService authorService;
 	public static void main(String[] args) {
 		SpringApplication.run(EcomProductServiceApplication.class, args);
@@ -32,16 +34,16 @@ public class EcomProductServiceApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		//initService.initialise();
 
-		Author author = new Author("Ashok Kumar", 1);
-
-		Book book1 = new Book("Book1", author);
-		Book book2 = new Book("Book2", author);
-		Book book3 = new Book("Book3", author);
-		author.setBooks(List.of(book1, book2, book3));
-
-		authorRepository.save(author);
-
-		display();
+//		Author author = new Author("Ashok Kumar", 1);
+//
+//		Book book1 = new Book("Book1", author);
+//		Book book2 = new Book("Book2", author);
+//		Book book3 = new Book("Book3", author);
+//		author.setBooks(List.of(book1, book2, book3));
+//
+//		authorRepository.save(author);
+//
+//		display();
 
 	}
 

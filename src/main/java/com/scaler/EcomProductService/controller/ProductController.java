@@ -30,52 +30,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity getAllProducts(){
-        /*
-        ProductResponseDTO p1 =  new ProductResponseDTO();
-        p1.setId(1);
-        p1.setTitle("Iphone 15 pro");
-        p1.setPrice(150000);
-        p1.setImage("www.google.com/images/iphone");
-        p1.setDescription("Kafi Mehnga phone");
-        p1.setCategory("Electronics");
-
-        ProductResponseDTO p2 =  new ProductResponseDTO();
-        p2.setId(2);
-        p2.setTitle("Macbook Pro");
-        p2.setPrice(250000);
-        p2.setImage("www.google.com/images/macbook");
-        p2.setDescription("Kafi Mehnga laptop");
-        p2.setCategory("Electronics");
-
-        List<ProductResponseDTO> products = Arrays.asList(p1, p2);
-        return ResponseEntity.ok(products);
-        */
         ProductListResponseDTO response = productService.getAllProducts();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products/{id}")
     public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException {
-        /*
-        ProductResponseDTO p1 =  new ProductResponseDTO();
-        p1.setId(1);
-        p1.setTitle("Iphone 15 pro");
-        p1.setPrice(150000);
-        p1.setImage("www.google.com/images/iphone");
-        p1.setDescription("Kafi Mehnga phone");
-        p1.setCategory("Electronics");
-
-        ProductResponseDTO p2 =  new ProductResponseDTO();
-        p2.setId(2);
-        p2.setTitle("Macbook Pro");
-        p2.setPrice(250000);
-        p2.setImage("www.google.com/images/macbook");
-        p2.setDescription("Kafi Mehnga laptop");
-        p2.setCategory("Electronics");
-
-        List<ProductResponseDTO> products = Arrays.asList(p1, p2);
-        return ResponseEntity.ok(products);
-        */
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }
@@ -94,7 +54,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity deleteProductById(@PathVariable("id") int id){
+    public ResponseEntity deleteProductById(@PathVariable("id") int id) throws ProductNotFoundException {
         boolean response = productService.deleteProduct(id);
         return ResponseEntity.ok(response);
     }
