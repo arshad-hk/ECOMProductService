@@ -16,9 +16,9 @@ import java.util.List;
 @SpringBootApplication()
 public class EcomProductServiceApplication implements CommandLineRunner {
 
-//	@Autowired
-//	@Qualifier("InitServiceImpl")
-//	InitService initService;
+	@Autowired
+	@Qualifier("InitServiceImpl")
+	InitService initService;
 
 	//@Autowired
 	AuthorRepository authorRepository;
@@ -32,7 +32,7 @@ public class EcomProductServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//initService.initialise();
+		initService.initialise();
 
 //		Author author = new Author("Ashok Kumar", 1);
 //

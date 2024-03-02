@@ -70,6 +70,22 @@ public class InitServiceImpl implements InitService{
         iphone.setCategory(electronics);
         iphone = productRepository.save(iphone);
 
+        Product iphone14 = new Product();
+        iphone14.setTitle("IPhone 14 Pro Max");
+        iphone14.setDescription("Best Iphone 14 ever");
+        iphone14.setImage("http://someImageURl");
+        iphone14.setPrice(pricePS5);
+        iphone14.setCategory(electronics);
+        iphone14 = productRepository.save(iphone14);
+
+        Product iphoneSE = new Product();
+        iphoneSE.setTitle("IPhone SE");
+        iphoneSE.setDescription("Small Iphone ever");
+        iphoneSE.setImage("http://someImageURl");
+        iphoneSE.setPrice(priceWatch);
+        iphoneSE.setCategory(electronics);
+        iphoneSE = productRepository.save(iphoneSE);
+
         Product macbook = new Product();
         macbook.setTitle("Macbook Pro 16");
         macbook.setDescription("Best macbook ever");
@@ -95,7 +111,7 @@ public class InitServiceImpl implements InitService{
         ps5 = productRepository.save(ps5);
 
         Order order = new Order();
-        order.setProducts(List.of(iphone, macbook, watch, ps5));
+        order.setProducts(List.of(iphone, macbook, watch, ps5, iphone14, iphoneSE));
         order = orderRepository.save(order);
     }
 }
