@@ -17,7 +17,7 @@ public class ProductController {
     private final ProductService productService; // immutable
 
     @Autowired // Autowired for constructor injection is optional from Spring 4.x+ onwards
-    public ProductController(@Qualifier("productService") ProductService productService) {
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
 

@@ -18,7 +18,8 @@ public class ProductMapper {
 
     public static ProductResponseDTO fakeProductResponseToProductResponse(FakeStoreProductResponseDTO fakeStoreProductResponseDTO){
         ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-        productResponseDTO.setId(fakeStoreProductResponseDTO.getId());
+        // this is done only to make the dto types compatible
+        productResponseDTO.setId(fakeStoreProductResponseDTO.getUUID());
         productResponseDTO.setPrice(fakeStoreProductResponseDTO.getPrice());
         productResponseDTO.setTitle(fakeStoreProductResponseDTO.getTitle());
         productResponseDTO.setDescription(fakeStoreProductResponseDTO.getDescription());

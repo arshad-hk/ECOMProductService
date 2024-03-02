@@ -5,6 +5,7 @@ import com.scaler.EcomProductService.dto.*;
 import com.scaler.EcomProductService.exception.ProductNotFoundException;
 import com.scaler.EcomProductService.model.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,12 @@ import static com.scaler.EcomProductService.util.ProductUtils.isNull;
 @Service("fakeStoreProductService")
 public class FakeStoreProductServiceImpl implements ProductService{
     private FakeStoreAPIClient fakeStoreAPIClient;
+    private RedisTemplate<String, FakeStoreProductResponseDTO> redisTemplate;
 
-    public FakeStoreProductServiceImpl(FakeStoreAPIClient fakeStoreAPIClient) {
+    public FakeStoreProductServiceImpl(FakeStoreAPIClient fakeStoreAPIClient,
+                                       RedisTemplate redisTemplate) {
         this.fakeStoreAPIClient = fakeStoreAPIClient;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -33,10 +37,16 @@ public class FakeStoreProductServiceImpl implements ProductService{
 
     @Override
     public ProductResponseDTO getProductById(int id) throws ProductNotFoundException {
-        FakeStoreProductResponseDTO fakeStoreProductResponseDTO = fakeStoreAPIClient.getProductById(id);
-        if(isNull(fakeStoreProductResponseDTO)){
-            throw new ProductNotFoundException("Product not found with id : " + id);
+        FakeStoreProductResponseDTO fakeStoreProductResponseDTO = null;
+        fakeStoreProductResponseDTO = (FakeStoreProductResponseDTO) redisTemplate.opsForHash().get("PRODUCTS", id);
+        if(fakeStoreProductResponseDTO == null){
+            fakeStoreProductResponseDTO = fakeStoreAPIClient.getProductById(id);
+            if(isNull(fakeStoreProductResponseDTO)){
+                throw new ProductNotFoundException("Product not found with id : " + id);
+            }
+            redisTemplate.opsForHash().put("PRODUCTS", id, fakeStoreProductResponseDTO);
         }
+
         return fakeProductResponseToProductResponse(fakeStoreProductResponseDTO);
     }
 
