@@ -8,8 +8,10 @@ import com.scaler.EcomProductService.exception.ProductNotFoundException;
 import com.scaler.EcomProductService.mapper.ProductMapper;
 import com.scaler.EcomProductService.model.Product;
 import com.scaler.EcomProductService.repository.ProductRepository;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -17,13 +19,22 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 
-    ProductServiceImpl(ProductRepository productRepository){
+    private RestTemplate restTemplate;
+
+    ProductServiceImpl(ProductRepository productRepository, RestTemplate restTemplate){
         this.productRepository = productRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public ProductListResponseDTO getAllProducts() {
         List<Product> products = productRepository.findAll();
+
+        System.out.println("Making a call to user service for testing service discovery");
+        String userServiceURL = "http://userservice/users/1";
+        String userServiceResponse = restTemplate.getForObject(userServiceURL, String.class);
+        System.out.println("Got response from user service:"+userServiceResponse);
+
         return ProductMapper.convertProductsToProductListResponseDTO(products);
     }
 

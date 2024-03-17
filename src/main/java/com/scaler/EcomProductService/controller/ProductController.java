@@ -17,7 +17,7 @@ public class ProductController {
     private final ProductService productService; // immutable
 
     @Autowired // Autowired for constructor injection is optional from Spring 4.x+ onwards
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+    public ProductController(@Qualifier("productService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -30,12 +30,14 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity getAllProducts(){
+        System.out.println("Request reached to this product service instance.");
         ProductListResponseDTO response = productService.getAllProducts();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/products/{id}")
     public ResponseEntity getProductFromId(@PathVariable("id") int id) throws ProductNotFoundException {
+        System.out.println("Request reached to this product service instance.");
         ProductResponseDTO response = productService.getProductById(id);
         return ResponseEntity.ok(response);
     }

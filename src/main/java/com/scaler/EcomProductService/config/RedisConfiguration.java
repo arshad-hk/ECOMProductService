@@ -1,4 +1,4 @@
-package com.scaler.EcomProductService;
+package com.scaler.EcomProductService.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
